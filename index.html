@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Undangan Fun Caving - Petualangan seru di Goa Kidang Kencono!">
+    <title>Fun Caving • Get Ready for Adventure!</title>
+    
+    <!-- Google Fonts: Poppins (ramah & santai) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN (untuk desain modern, responsive, dan cepat) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap');
+        
+        :root {
+            --primary: #166534;   /* Hijau daun gelap */
+            --secondary: #854d0e; /* Coklat tanah */
+        }
+        
+        * {
+            font-family: 'Poppins', system-ui, sans-serif;
+        }
+        
+        body {
+            scroll-behavior: smooth;
+        }
+        
+        /* Hero Background - Gunakan gambar yang kamu lampirkan */
+        .hero-bg {
+            background-image: url('bg-funcaving.jpeg'); 
+            /* CATATAN PENTING:
+               1. Download gambar yang kamu lampirkan (vruyr-martirosyan-vwcxco7o564-unsplash.jpg)
+               2. Simpan dengan nama "hero-cave.jpg" di folder yang sama dengan file HTML ini
+               3. Ganti baris di atas menjadi: background-image: url('hero-cave.jpg');
+               Gambar tersebut sangat cocok untuk hero karena nuansa gua alami yang gelap dan hijau! */
+            background-size: cover;
+            background-position: center 75%;
+            background-attachment: fixed;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(22, 101, 52, 0.65));
+        }
+        
+        /* Animasi ringan */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 25px 25px 0 -10px rgb(22 101 52);
+        }
+        
+        /* Icon bounce */
+        .icon-bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        /* Divider alam */
+        .nature-divider {
+            height: 4px;
+            background: linear-gradient(to right, #166534, #854d0e, #166534);
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b border-emerald-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <div class="flex items-center gap-x-3">
+                <div class="w-10 h-10 bg-emerald-600 text-white rounded-2xl flex items-center justify-center text-3xl shadow-inner">
+                    🌿
+                </div>
+                <h1 class="text-3xl font-bold tracking-tighter text-emerald-700">Fun Caving</h1>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-x-9 text-lg font-medium">
+                <a href="#info-acara" onclick="closeMobileMenu()" 
+                   class="hover:text-emerald-600 transition-colors flex items-center gap-x-1">
+                    <i class="fa-solid fa-info-circle"></i>
+                    <span>Info Acara</span>
+                </a>
+                <a href="#persiapan" onclick="closeMobileMenu()" 
+                   class="hover:text-emerald-600 transition-colors flex items-center gap-x-1">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Persiapan</span>
+                </a>
+                <a href="#barang" onclick="closeMobileMenu()" 
+                   class="hover:text-emerald-600 transition-colors flex items-center gap-x-1">
+                    <i class="fa-solid fa-backpack"></i>
+                    <span>Barang Dibawa</span>
+                </a>
+                <a href="#galeri" onclick="closeMobileMenu()" 
+                   class="hover:text-emerald-600 transition-colors flex items-center gap-x-1">
+                    <i class="fa-solid fa-camera"></i>
+                    <span>Galeri</span>
+                </a>
+            </div>
+            
+            <!-- CTA Button Desktop -->
+            <a href="#info-acara" 
+               class="hidden md:flex items-center gap-x-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-3xl font-semibold text-lg shadow-lg transition-all hover:scale-105">
+                <span>Lihat Detail</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            
+            <!-- Mobile Hamburger -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-4xl text-emerald-700 hover:text-emerald-800 transition-colors">
+                <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-6 py-6">
+            <div class="flex flex-col gap-y-6 text-lg font-medium">
+                <a href="#info-acara" onclick="closeMobileMenu()" class="flex items-center gap-x-3 py-2 hover:text-emerald-600">
+                    <i class="fa-solid fa-info-circle w-6"></i> Info Acara
+                </a>
+                <a href="#persiapan" onclick="closeMobileMenu()" class="flex items-center gap-x-3 py-2 hover:text-emerald-600">
+                    <i class="fa-solid fa-list-check w-6"></i> Persiapan Peserta
+                </a>
+                <a href="#barang" onclick="closeMobileMenu()" class="flex items-center gap-x-3 py-2 hover:text-emerald-600">
+                    <i class="fa-solid fa-backpack w-6"></i> Barang yang Harus Dibawa
+                </a>
+                <a href="#galeri" onclick="closeMobileMenu()" class="flex items-center gap-x-3 py-2 hover:text-emerald-600">
+                    <i class="fa-solid fa-camera w-6"></i> Galeri
+                </a>
+                <div class="pt-4 border-t">
+                    <a href="#info-acara" onclick="closeMobileMenu()" 
+                       class="block w-full text-center bg-emerald-600 text-white py-4 rounded-3xl font-semibold text-xl shadow-lg">
+                        Lihat Detail Acara →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-bg h-screen flex items-center relative">
+        <div class="hero-overlay absolute inset-0"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10 text-white">
+            <div class="inline-flex items-center gap-x-3 bg-white/20 backdrop-blur-md px-6 py-2 rounded-3xl mb-6 text-sm font-medium">
+                <i class="fa-solid fa-mountain-sun icon-bounce"></i>
+                PETUALANGAN ALAM TERBAIK
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-bold leading-none tracking-tighter mb-6">
+                GET READY FOR<br>FUN CAVING!!
+            </h1>
+            
+            <p class="text-2xl md:text-4xl font-medium mb-10 max-w-2xl mx-auto">
+                Petualangan seru menanti kamu di dalam gua yang hijau dan misterius!
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="document.getElementById('info-acara').scrollIntoView({ behavior: 'smooth' });" 
+                        class="bg-white text-emerald-700 hover:bg-emerald-100 px-10 py-5 rounded-3xl text-2xl font-semibold flex items-center gap-x-4 shadow-2xl transition-all hover:scale-110">
+                    LIHAT DETAIL ACARA
+                    <i class="fa-solid fa-arrow-down"></i>
+                </button>
+                
+                <a href="#galeri" 
+                   class="border-2 border-white hover:bg-white/10 text-white px-8 py-5 rounded-3xl text-2xl font-medium flex items-center gap-x-3 transition-all hover:scale-110">
+                    <i class="fa-solid fa-images"></i>
+                    LIHAT GALERI
+                </a>
+            </div>
+            
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/80 text-sm">
+                <p class="mb-2">Gulir ke bawah</p>
+                <i class="fa-solid fa-chevron-down animate-bounce text-3xl"></i>
+            </div>
+            
+            <!-- Natural element decoration -->
+            <div class="hidden xl:block absolute bottom-12 right-12 text-7xl opacity-20 rotate-12">
+                🪨
+            </div>
+            <div class="hidden xl:block absolute top-12 left-12 text-7xl opacity-20 -rotate-12">
+                🌿
+            </div>
+        </div>
+    </section>
+    
+    <!-- INFORMASI ACARA -->
+    <section id="info-acara" class="py-20 bg-gradient-to-b from-white to-emerald-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <span class="px-6 py-2 bg-emerald-100 text-emerald-700 text-sm font-semibold rounded-3xl">ACARA SIAP BERLANGSUNG!</span>
+                <h2 class="text-5xl font-bold text-emerald-800 mt-4">Informasi Acara</h2>
+                <p class="text-emerald-600 text-xl mt-3">Siap-siap menjelajahi keindahan Goa Kidang Kencono!</p>
+                <div class="nature-divider w-24 mx-auto mt-6"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div class="card-hover bg-white rounded-3xl p-8 text-center shadow-lg border border-emerald-100">
+                    <i class="fa-solid fa-map-location-dot text-6xl text-amber-700 mb-6"></i>
+                    <h3 class="font-semibold text-xl text-emerald-800">Tempat</h3>
+                    <p class="text-3xl font-bold text-emerald-900 mt-3 leading-none">Goa Kidang Kencono</p>
+                    <p class="text-emerald-600 text-sm mt-2">Kabupaten Gunungkidul, Yogyakarta</p>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="card-hover bg-white rounded-3xl p-8 text-center shadow-lg border border-emerald-100">
+                    <i class="fa-solid fa-clock text-6xl text-amber-700 mb-6"></i>
+                    <h3 class="font-semibold text-xl text-emerald-800">Waktu Kumpul</h3>
+                    <p class="text-3xl font-bold text-emerald-900 mt-3">12.30 WIB</p>
+                    <p class="text-emerald-600 text-sm mt-2">Jangan telat ya! ⏰</p>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="card-hover bg-white rounded-3xl p-8 text-center shadow-lg border border-emerald-100">
+                    <i class="fa-solid fa-location-dot text-6xl text-amber-700 mb-6"></i>
+                    <h3 class="font-semibold text-xl text-emerald-800">Titik Kumpul</h3>
+                    <p class="text-3xl font-bold text-emerald-900 mt-3">Kebun Bio</p>
+                    <p class="text-emerald-600 text-sm mt-2">Mudah dijangkau dengan motor</p>
+                </div>
+                
+                <!-- Card 4 -->
+                <div class="card-hover bg-white rounded-3xl p-8 text-center shadow-lg border border-emerald-100">
+                    <i class="fa-solid fa-ticket-simple text-6xl text-amber-700 mb-6"></i>
+                    <h3 class="font-semibold text-xl text-emerald-800">HTM</h3>
+                    <p class="text-5xl font-bold text-emerald-900 mt-3">10K</p>
+                    <p class="text-emerald-600 text-sm mt-2">Termasuk seru-seruan + pengalaman!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- PERSIAPAN PESERTA -->
+    <section id="persiapan" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-5/12">
+                    <div class="sticky top-8">
+                        <span class="inline-flex bg-amber-100 text-amber-700 px-5 py-1 rounded-3xl text-sm font-semibold">WAJIB DIBACA</span>
+                        <h2 class="text-5xl font-bold text-emerald-800 mt-4 leading-tight">Persiapan Peserta</h2>
+                        <p class="mt-6 text-xl text-gray-600">Biarkan petualangan berjalan lancar dan aman. Pakai yang nyaman ya!</p>
+                        <div class="flex items-center gap-3 mt-8 text-emerald-700">
+                            <i class="fa-solid fa-leaf text-4xl"></i>
+                            <p class="font-medium">Natural &amp; Friendly Vibes</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-7/12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Item 1 -->
+                        <div class="fade-in flex gap-5 bg-white p-7 rounded-3xl shadow-md">
+                            <div class="w-12 h-12 flex-shrink-0 bg-emerald-100 rounded-2xl flex items-center justify-center text-4xl">👕</div>
+                            <div>
+                                <h4 class="font-semibold text-xl">Baju dan celana panjang</h4>
+                                <p class="text-gray-600 mt-2">Pilih yang nyaman dan tebal supaya terlindungi dari batu &amp; tanah.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Item 2 -->
+                        <div class="fade-in flex gap-5 bg-white p-7 rounded-3xl shadow-md">
+                            <div class="w-12 h-12 flex-shrink-0 bg-emerald-100 rounded-2xl flex items-center justify-center text-4xl">🚫</div>
+                            <div>
+                                <h4 class="font-semibold text-xl">Hindari model aneh</h4>
+                                <p class="text-gray-600 mt-2">Jangan pakai baju longgar atau ada tali yang mudah tersangkut di batu.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Item 3 -->
+                        <div class="fade-in flex gap-5 bg-white p-7 rounded-3xl shadow-md">
+                            <div class="w-12 h-12 flex-shrink-0 bg-emerald-100 rounded-2xl flex items-center justify-center text-4xl">🧕</div>
+                            <div>
+                                <h4 class="font-semibold text-xl">Hijab simpel</h4>
+                                <p class="text-gray-600 mt-2">Pakai hijab yang tidak mudah lepas dan tidak terlalu tebal.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Item 4 -->
+                        <div class="fade-in flex gap-5 bg-white p-7 rounded-3xl shadow-md">
+                            <div class="w-12 h-12 flex-shrink-0 bg-emerald-100 rounded-2xl flex items-center justify-center text-4xl">🏍️</div>
+                            <div>
+                                <h4 class="font-semibold text-xl">Motor yang layak pakai</h4>
+                                <p class="text-gray-600 mt-2">Pastikan motor dalam kondisi baik untuk perjalanan ke lokasi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- BARANG YANG HARUS DIBAWA -->
+    <section id="barang" class="py-20 bg-emerald-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-5xl font-bold text-emerald-800">Barang yang Harus Dibawa</h2>
+                <p class="text-emerald-600 text-2xl mt-3">Siapkan ini biar makin asyik!</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="card-hover bg-white rounded-3xl p-10 text-center shadow-lg">
+                    <i class="fa-solid fa-hand text-7xl text-amber-700 mb-8"></i>
+                    <h4 class="text-2xl font-semibold text-emerald-800">Sarung tangan kain</h4>
+                    <p class="mt-4 text-gray-600">Untuk melindungi tangan saat memanjat dan merayap di dalam gua.</p>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="card-hover bg-white rounded-3xl p-10 text-center shadow-lg relative">
+                    <div class="absolute -top-3 right-6 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-3xl rotate-12">WAJIB!</div>
+                    <i class="fa-solid fa-lightbulb text-7xl text-amber-700 mb-8"></i>
+                    <h4 class="text-2xl font-semibold text-emerald-800">Headlamp / senter kepala</h4>
+                    <p class="mt-4 text-gray-600">Cahaya sangat penting di dalam gua yang gelap!</p>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="card-hover bg-white rounded-3xl p-10 text-center shadow-lg">
+                    <i class="fa-solid fa-shirt text-7xl text-amber-700 mb-8"></i>
+                    <h4 class="text-2xl font-semibold text-emerald-800">Baju ganti (1 pasang)</h4>
+                    <p class="mt-4 text-gray-600">Karena pasti basah dan kotor setelah petualangan.</p>
+                </div>
+            </div>
+            
+            <p class="text-center text-emerald-600 mt-10 flex items-center justify-center gap-2 text-sm">
+                <i class="fa-solid fa-circle-info"></i>
+                Bawa juga air minum, camilan, dan semangat tinggi!
+            </p>
+        </div>
+    </section>
+    
+    <!-- GALERI -->
+    <section id="galeri" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <h2 class="text-5xl font-bold text-emerald-800">Galeri Petualangan</h2>
+                    <p class="text-emerald-600 text-xl">Suasana seru di Goa Kidang Kencono</p>
+                </div>
+                <a href="#" onclick="alert('Yuk foto-foto bareng di acara nanti! 📸')" 
+                   class="hidden md:flex items-center text-emerald-700 hover:text-emerald-600 font-medium">
+                    Lihat semua foto 
+                    <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Gambar 1 - Gambar yang kamu lampirkan (hero) -->
+                <div class="overflow-hidden rounded-3xl shadow-xl group">
+                    <img src="https://picsum.photos/id/1016/800/800" 
+                         alt="Goa Kidang Kencono - Sungai di dalam gua"
+                         class="w-full aspect-square object-cover transition-transform group-hover:scale-110">
+                    <div class="p-4 bg-white">
+                        <p class="font-medium text-emerald-700">Sungai hijau di dalam gua</p>
+                    </div>
+                </div>
+                
+                <!-- Gambar 2 -->
+                <div class="overflow-hidden rounded-3xl shadow-xl group">
+                    <img src="https://picsum.photos/id/133/800/800" 
+                         alt="Pemandangan gua yang hijau"
+                         class="w-full aspect-square object-cover transition-transform group-hover:scale-110">
+                    <div class="p-4 bg-white">
+                        <p class="font-medium text-emerald-700">Tembok gua penuh lumut</p>
+                    </div>
+                </div>
+                
+                <!-- Gambar 3 -->
+                <div class="overflow-hidden rounded-3xl shadow-xl group">
+                    <img src="https://picsum.photos/id/160/800/800" 
+                         alt="Petualang di gua"
+                         class="w-full aspect-square object-cover transition-transform group-hover:scale-110">
+                    <div class="p-4 bg-white">
+                        <p class="font-medium text-emerald-700">Tim sedang menjelajah</p>
+                    </div>
+                </div>
+                
+                <!-- Gambar 4 -->
+                <div class="overflow-hidden rounded-3xl shadow-xl group">
+                    <img src="https://picsum.photos/id/251/800/800" 
+                         alt="Cahaya masuk gua"
+                         class="w-full aspect-square object-cover transition-transform group-hover:scale-110">
+                    <div class="p-4 bg-white">
+                        <p class="font-medium text-emerald-700">Cahaya alami di lorong gua</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-center text-sm text-emerald-500 mt-8">* Gambar di atas adalah ilustrasi suasana. Foto asli kamu akan lebih keren lagi! 📸</p>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="bg-emerald-800 text-white py-16">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex justify-center mb-8 text-7xl">
+                🌿🪨🌿
+            </div>
+            
+            <h3 class="text-4xl font-bold leading-none mb-6">Siap seru-seruan bareng?<br>Jangan sampai ketinggalan!</h3>
+            
+            <p class="max-w-md mx-auto text-emerald-200 text-xl">
+                Yuk jadi bagian dari petualangan Fun Caving. 
+                Kita tunggu kamu di Goa Kidang Kencono!
+            </p>
+            
+            <!-- Social / Share -->
+            <div class="flex justify-center gap-x-8 mt-12 text-4xl">
+                <i onclick="shareToWA()" class="fa-brands fa-whatsapp cursor-pointer hover:scale-125 transition-transform"></i>
+                <i onclick="shareToIG()" class="fa-brands fa-instagram cursor-pointer hover:scale-125 transition-transform"></i>
+            </div>
+            
+            <div class="mt-16 pt-8 border-t border-emerald-700 text-xs opacity-60 flex flex-col md:flex-row justify-between items-center gap-y-3">
+                <p>Made with ❤️ for nature lovers • Jakarta, 2026</p>
+                <p class="flex items-center gap-x-1">
+                    <i class="fa-solid fa-leaf"></i> 
+                    Stay safe, stay fun, stay wild!
+                </p>
+                <p>Undangan ini 100% HTML + CSS + JS • Siap pakai!</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        /**
+         * Tailwind CSS Configuration
+         * Menggunakan warna hijau daun dan coklat sesuai tema
+         */
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        content: [],
+                        theme: {
+                            extend: {
+                                colors: {
+                                    primary: '#166534',
+                                    secondary: '#854d0e'
+                                }
+                            }
+                        },
+                        plugins: [],
+                        ...userConfig,
+                    }
+                },
+                theme(userTheme = {}) {
+                    return {
+                        ...this.defaultTheme(),
+                        ...userTheme,
+                    }
+                },
+                defaultTheme() {
+                    return {
+                        extend: {},
+                    }
+                },
+            }
+        }
+        
+        /**
+         * Inisialisasi Tailwind + animasi fade-in
+         */
+        function initialize() {
+            // Jalankan Tailwind
+            const config = initializeTailwind().config()
+            document.documentElement.setAttribute('data-tailwind-config', JSON.stringify(config))
+            
+            // Animasi fade-in untuk semua elemen dengan class fade-in
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible')
+                    }
+                })
+            }, {
+                threshold: 0.15
+            })
+            
+            document.querySelectorAll('.fade-in').forEach((el) => {
+                observer.observe(el)
+            })
+            
+            console.log('%c✅ Website Fun Caving siap! Tema friendly + natural aktif.', 'color:#166534; font-family:monospace; font-size:13px')
+        }
+        
+        /**
+         * Toggle mobile menu
+         */
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('hamburger-icon')
+            
+            menu.classList.toggle('hidden')
+            
+            if (menu.classList.contains('hidden')) {
+                icon.classList.replace('fa-xmark', 'fa-bars')
+            } else {
+                icon.classList.replace('fa-bars', 'fa-xmark')
+            }
+        }
+        
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('hamburger-icon')
+            menu.classList.add('hidden')
+            icon.classList.replace('fa-xmark', 'fa-bars')
+        }
+        
+        /**
+         * Share ke WhatsApp (santai & fun)
+         */
+        function shareToWA() {
+            const text = encodeURIComponent("Aku lagi ikut Fun Caving nih! 🌿🪨 Kamu ikut juga yuk! Lihat detailnya di link ini 👇\n\n" + window.location.href)
+            window.open(`https://wa.me/?text=${text}`, '_blank')
+        }
+        
+        /**
+         * Share ke Instagram (story prompt)
+         */
+        function shareToIG() {
+            alert("📸 Copy link ini dan share ke Instagram Story kamu ya!\n\n" + window.location.href + "\n\nTag @fun_caving_id biar makin rame! 🌿")
+        }
+        
+        // Jalankan semua script saat halaman dimuat
+        window.onload = initialize
+    </script>
+</body>
+</html>
